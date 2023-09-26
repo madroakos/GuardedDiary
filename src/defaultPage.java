@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -49,12 +47,9 @@ public class defaultPage {
 
 
 
-        notesList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                File filename = new File(notesList.getSelectedValue() + ".txt");
-                noteArea.setText(getContent(filename));
-            }
+        notesList.addListSelectionListener(e -> {
+            File filename = new File(notesList.getSelectedValue() + ".txt");
+            noteArea.setText(getContent(filename));
         });
 
         noteArea.addKeyListener(new KeyAdapter() {
@@ -83,26 +78,23 @@ public class defaultPage {
             }
         });
 
-        newFile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JPanel optionPanel = new JPanel();
-                JLabel label = new JLabel("Enter a filename:");
-                JTextField filename = new JTextField(20);
+        newFile.addActionListener(e -> {
+            JPanel optionPanel = new JPanel();
+            JLabel label = new JLabel("Enter a filename:");
+            JTextField filename = new JTextField(20);
 
-                optionPanel.add(label);
-                optionPanel.add(filename);
+            optionPanel.add(label);
+            optionPanel.add(filename);
 
-                String x = JOptionPane.showInputDialog(null,
-                        "Name your file:",
-                        "This is shit",
-                        JOptionPane.QUESTION_MESSAGE);
-                if (x != null) {
-                    System.out.println("itt");
-                    model.addElement(x);
-                    notesList.setSelectedIndex(notesList.getLastVisibleIndex());
+            String x = JOptionPane.showInputDialog(null,
+                    "Name your file:",
+                    "This is shit",
+                    JOptionPane.QUESTION_MESSAGE);
+            if (x != null) {
+                System.out.println("itt");
+                model.addElement(x);
+                notesList.setSelectedIndex(notesList.getLastVisibleIndex());
 
-                }
             }
         });
 
